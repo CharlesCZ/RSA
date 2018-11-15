@@ -1,6 +1,6 @@
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
-import static java.lang.Math.pow;
+
 
 public class RSA {
 
@@ -9,7 +9,7 @@ public class RSA {
     private long e;
     private long d;
     private char[] M;
-    private int[] C;
+    private long[] C;
     public long getN() {
         return N;
     }
@@ -51,12 +51,14 @@ public class RSA {
         for(int i=0;i<message.length();++i)
             M[i]=message.charAt(i);
 
-        C=new int[M.length];
+        C=new long[M.length];
+
 
         for(int i=0;i<message.length();++i) {
-            BigDecimal decimalCtemp=new BigDecimal(M[i]);
-            C[i] = decimalCtemp.pow((int) e).remainder(new BigDecimal(N)).intValue();
 
+
+            BigInteger integerCtemp=new BigInteger(Integer.toString(M[i]));
+            C[i] = integerCtemp.modPow(new BigInteger(Long.toString(e)),new BigInteger(Long.toString(N))).longValue();
         }
     }
 
@@ -64,17 +66,11 @@ public class RSA {
 
         char[] temp=new char[C.length];
         for(int i=0;i<C.length;++i) {
-            BigDecimal decimalCtemp=new BigDecimal(C[i]);
-            temp[i] = (char) decimalCtemp.pow((int) d).remainder(new BigDecimal(N)).intValue();
-
-
+            BigInteger integerCtemp=new BigInteger(Long.toString(C[i]));
+            temp[i] = (char) integerCtemp.modPow(new BigInteger(Long.toString(d)),new BigInteger(Long.toString(N))).intValue();
         }
 
         return new String(temp);
     }
-
-
-
-
 
 }

@@ -8,7 +8,8 @@ public class Main {
 
 
         RSA rsa=new RSA();
-        rsa.setN(31,19);
+        rsa.setN(7741,7727);
+     //  rsa.setN(19,	31);
         rsa.setE(7);
         rsa.encripion("wiadomosc");
         System.out.println(rsa.decripion());
